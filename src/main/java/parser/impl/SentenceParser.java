@@ -11,11 +11,12 @@ public class SentenceParser implements Parser {
     @Override
     public TextComponent parse(String string) {
         TextComposite textComposite = new TextComposite(Level.SENTENCE);
-        String [] sentences = string.split(SENTENCE_REGEX);
+        String[] sentences = string.split(SENTENCE_REGEX);
         Parser lexemeParser = new LexemeParser();
-        System.out.println(sentences.length + " sent");
-        for (String sentence : sentences){
-            textComposite.add(lexemeParser.parse(sentence));
+        for (String sentence : sentences) {
+            if (!sentence.isBlank()) {
+                textComposite.add(lexemeParser.parse(sentence));
+            }
         }
         return textComposite;
     }

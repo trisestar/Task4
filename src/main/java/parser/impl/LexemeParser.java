@@ -11,11 +11,12 @@ public class LexemeParser implements Parser {
     @Override
     public TextComponent parse(String string) {
         TextComposite textComposite = new TextComposite(Level.LEXEME);
-        String [] lexemes = string.split(LEXEME_REGEX);
+        String[] lexemes = string.split(LEXEME_REGEX);
         Parser symbolParser = new SymbolParser();
-        System.out.println(lexemes.length + " lexs");
-        for (String lexeme : lexemes){
-            textComposite.add(symbolParser.parse(lexeme));
+        for (String lexeme : lexemes) {
+            if (!lexeme.isBlank()) {
+                textComposite.add(symbolParser.parse(lexeme));
+            }
         }
         return textComposite;
     }

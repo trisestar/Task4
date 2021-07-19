@@ -1,5 +1,12 @@
 package entity;
 
+import java.util.List;
+
 public interface TextComponent {
-    public void read();
+
+    String getString();
+
+    List<TextComponent> getNestedObjects();
+
+    int numOfComponents();
 }

@@ -2,8 +2,11 @@ package entity.impl;
 
 import entity.TextComponent;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Symbol implements TextComponent {
-    private char ch;
+    private final char ch;
 
     public Symbol(char ch) {
         this.ch = ch;
@@ -11,7 +14,17 @@ public class Symbol implements TextComponent {
 
 
     @Override
-    public void read() {
-        System.out.print(ch);
+    public String getString() {
+        return String.valueOf(ch);
+    }
+
+    @Override
+    public List<TextComponent> getNestedObjects() {
+        return new ArrayList<>();
+    }
+
+    @Override
+    public int numOfComponents() {
+        return 0;
     }
 }

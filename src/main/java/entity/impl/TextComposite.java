@@ -7,8 +7,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TextComposite implements TextComponent {
-    private List<TextComponent> components = new ArrayList<>();
     Level level;
+    String info;
+    private List<TextComponent> components = new ArrayList<>();
 
     public TextComposite(List<TextComponent> components) {
         this.components = components;
@@ -18,20 +19,39 @@ public class TextComposite implements TextComponent {
         this.level = level;
     }
 
+    public TextComposite() {
+    }
+
     public boolean add(TextComponent component) {
         return components.add(component);
     }
 
-    @Override
-    public void read() {
-        components.forEach(comp -> {
-            comp.read();
-            switch (level){
-                case PARAGRAPH -> System.out.print("\n\t");
-                case SENTENCE -> System.out.print("___");
-                case LEXEME -> System.out.print(" ");
-            }
-        });
 
+    @Override
+    public String getString() {
+        StringBuilder data = new StringBuilder();
+        String delimiter = "";
+        switch (level) {
+            case PARAGRAPH -> {
+                delimiter = "\n\t";
+                data.append("\t");
+            }
+            case SENTENCE -> delimiter = " ";
+            case LEXEME -> delimiter = " ";
+        }
+
+        for (TextComponent component : components) {
+            data.append(component.getString());
+            data.append(delimiter);
+        }
+        return data.toString();
+    }
+
+    public List<TextComponent> getNestedObjects() {
+        return components;
+    }
+
+    public int numOfComponents() {
+        return components.size();
     }
 }
