@@ -1,5 +1,6 @@
 package service.impl;
 
+import entity.Level;
 import entity.TextComponent;
 import entity.impl.TextComposite;
 import service.CompositeService;
@@ -59,8 +60,8 @@ public class CompositeServiceImpl implements CompositeService {
             sentences.addAll(paragraph.getNestedObjects());
         }
         int max = 0;
-        TextComponent biggestSentence = new TextComposite();
-        TextComponent biggestWord = new TextComposite();
+        TextComponent biggestSentence = new TextComposite(Level.OTHER);
+        TextComponent biggestWord = new TextComposite(Level.OTHER);
         List<TextComponent> words;
         for (TextComponent sentence : sentences) {
             words = sentence.getNestedObjects();
@@ -78,4 +79,20 @@ public class CompositeServiceImpl implements CompositeService {
         result.add(biggestWord);
         return result;
     }
+
+    @Override
+    public TextComponent deleteSentencesWithSizeLessThan(TextComponent textComponent, int size) {
+        List<TextComponent> paragraphs = textComponent.getNestedObjects();
+        List<TextComponent> sentences;
+        for (int i = 0; i< paragraphs.size(); i++){
+            sentences = paragraphs.get(i).getNestedObjects();
+            sentences.removeIf(sentence -> sentence.numOfComponents() < size);
+            paragraphs.set(i, new TextComposite(sentences, Level.SENTENCE));
+
+        }
+        return new TextComposite(paragraphs, Level.PARAGRAPH);
+
+    }
+
+
 }

@@ -11,19 +11,17 @@ public class TextComposite implements TextComponent {
     String info;
     private List<TextComponent> components = new ArrayList<>();
 
-    public TextComposite(List<TextComponent> components) {
+    public TextComposite(List<TextComponent> components, Level level) {
         this.components = components;
+        this.level = level;
     }
 
     public TextComposite(Level level) {
         this.level = level;
     }
 
-    public TextComposite() {
-    }
-
-    public boolean add(TextComponent component) {
-        return components.add(component);
+    public void add(TextComponent component) {
+        components.add(component);
     }
 
 

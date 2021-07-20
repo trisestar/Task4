@@ -14,7 +14,6 @@ public class Tests {
         String text = Reader.readFile("src\\main\\resources\\data\\data.txt");
         Parser parser = new ParagraphParser();
         TextComponent comp = parser.parse(text);
-        comp.read();
     }
 
     @Test
@@ -50,6 +49,15 @@ public class Tests {
         System.out.println(list.get(1).getString());
         System.out.println("In sentence:");
         System.out.println(list.get(0).getString());
+    }
+
+    @Test
+    public void testDeleteBySize(){
+        String text = Reader.readFile("src\\main\\resources\\data\\data.txt");
+        TextComponent textComponent = new ParagraphParser().parse(text);
+        System.out.println(textComponent.getString());
+        textComponent = new CompositeServiceImpl().deleteSentencesWithSizeLessThan(textComponent,25);
+        System.out.println(textComponent.getString());
     }
 
 }
