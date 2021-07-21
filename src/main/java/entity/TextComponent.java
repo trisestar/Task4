@@ -9,4 +9,6 @@ public interface TextComponent {
     List<TextComponent> getNestedObjects();
 
     int numOfComponents();
+
+    char getSign();
 }

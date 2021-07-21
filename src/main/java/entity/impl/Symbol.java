@@ -12,7 +12,6 @@ public class Symbol implements TextComponent {
         this.ch = ch;
     }
 
-
     @Override
     public String getString() {
         return String.valueOf(ch);
@@ -25,6 +24,11 @@ public class Symbol implements TextComponent {
 
     @Override
     public int numOfComponents() {
+        return 0;
+    }
+
+    @Override
+    public char getSign() {
         return 0;
     }
 }

@@ -6,15 +6,10 @@ import reader.Reader;
 import service.impl.CompositeServiceImpl;
 
 import java.util.List;
+import java.util.Map;
 
 public class Tests {
 
-    @Test
-    public void consoleTest() {
-        String text = Reader.readFile("src\\main\\resources\\data\\data.txt");
-        Parser parser = new ParagraphParser();
-        TextComponent comp = parser.parse(text);
-    }
 
     @Test
     public void stringTest() {
@@ -52,12 +47,32 @@ public class Tests {
     }
 
     @Test
-    public void testDeleteBySize(){
+    public void testDeleteBySize() {
         String text = Reader.readFile("src\\main\\resources\\data\\data.txt");
         TextComponent textComponent = new ParagraphParser().parse(text);
         System.out.println(textComponent.getString());
-        textComponent = new CompositeServiceImpl().deleteSentencesWithSizeLessThan(textComponent,25);
+        textComponent = new CompositeServiceImpl().deleteSentencesWithSizeLessThan(textComponent, 25);
         System.out.println(textComponent.getString());
+    }
+
+    @Test
+    public void testFindSameWords() {
+        String text = Reader.readFile("src\\main\\resources\\data\\data.txt");
+        TextComponent textComponent = new ParagraphParser().parse(text);
+        Map map = new CompositeServiceImpl().getRepetitiveWords(textComponent);
+        System.out.println(map);
+
+    }
+
+    @Test
+    public void testSymbols() {
+        String text = Reader.readFile("src\\main\\resources\\data\\data.txt");
+        TextComponent textComponent = new ParagraphParser().parse(text);
+        TextComponent sentence = textComponent.getNestedObjects().get(0);
+        List result = new CompositeServiceImpl().vowelsAndConsonants(sentence);
+        System.out.println("vowels = " + result.get(0));
+        System.out.println("consonants = " + result.get(1));
+        
     }
 
 }

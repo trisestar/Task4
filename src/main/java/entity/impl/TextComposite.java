@@ -9,6 +9,7 @@ import java.util.List;
 public class TextComposite implements TextComponent {
     Level level;
     String info;
+    char sign;
     private List<TextComponent> components = new ArrayList<>();
 
     public TextComposite(List<TextComponent> components, Level level) {
@@ -20,8 +21,21 @@ public class TextComposite implements TextComponent {
         this.level = level;
     }
 
+    public char getSign() {
+        return sign;
+    }
+
+    public void setSign(char sign) {
+        this.sign = sign;
+    }
+
     public void add(TextComponent component) {
         components.add(component);
+    }
+
+    public void add(TextComponent component, char ch) {
+        components.add(component);
+        this.sign = ch;
     }
 
 
@@ -34,14 +48,25 @@ public class TextComposite implements TextComponent {
                 delimiter = "\n\t";
                 data.append("\t");
             }
-            case SENTENCE -> delimiter = " ";
+            case SENTENCE -> {
+
+                delimiter = " ";
+
+            }
             case LEXEME -> delimiter = " ";
         }
 
         for (TextComponent component : components) {
+
             data.append(component.getString());
+            if (level.equals(Level.SENTENCE)) {
+
+                char ch = component.getSign();
+                data.setCharAt(data.length() - 1, ch);
+            }
             data.append(delimiter);
         }
+        info = data.toString();
         return data.toString();
     }
 
